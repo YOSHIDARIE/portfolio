@@ -5,8 +5,123 @@
   <meta name="viewport"content="width=dvice-width,initial-scale=1.0">
   <meta http-equiv="X-UA=Compatible"content="ie=edge">
   <title>RIE YOSHIDA</title>
+  <script src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <style>
+    body {
+      background-color: black;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    h1 {
+      animation: fadeIn 6s ease 0s 1 normal;
+      color: white;
+      font-size: 50px;
+      margin: 350px;
+      text-align: center;   
+    }
+    @keyframes fadeIn {
+      0% {opacity: 0}
+      100% {opacity: 1}
+    }
+    .wrapper {
+      background-color:black;
+      height: 4150px;
+      width: 150px;
+    }
+    .name {
+      color: white;
+      font-size: 40px;
+      transform: rotate(90deg);
+      position: sticky;
+      top: 50px;
+      left: 0;
+      z-index: 2;
+    }
+    img {
+      width: auto;
+      height: 500px;
+      margin: 60px;
+      z-index: 1;
+    }
+    .fadein {
+      opacity: 0;
+      transform : translate(0, 50px);
+      transition : all 1500ms;
+    }
+    .scrollin{
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    .slideConts {
+      font-size: 20px;
+      width: 730px;
+      height: 50px;
+      margin: 0;
+      transition: .5s;
+    }
+    .slideContsR {
+      color: white;
+      border-bottom: solid 1px white;
+      transform: translate(1500px, 0);
+    }
+    .show {
+      transform: translate(800px, 0);
+    }
+  </style>
 </head> 
 <body>
-    
+  <h1>RIE YOSHIDA</h1>
+  <div class="wrapper"><div class="name">RIEYOSHIDA</div>
+    <div class="fadein"><img src="portfolio1.jpg"></div>
+    <div class="slideContsR slideConts">BIRTHDAY<br>1997/04/21</div>
+    <div class="fadein"><img src="portfolio2.jpg"></div>
+    <div class="slideContsR slideConts">FROM<br>FUKUI</div>
+    <div class="fadein"><img src="portfolio3.jpg"></div>
+    <div class="slideContsR slideConts">PERSONALITY<br>CAUTIOUS</div>
+    <div class="fadein"><img src="portfolio4.jpg"></div>
+    <div class="slideContsR slideConts">HOBBY<br>NETSHOPPING</div>
+    <div class="fadein"><img src="portfolio5.jpg"></div>
+    <div class="slideContsR slideConts">EXRERIENCE<br>TOUCH HTTML,CSS,JAVASCRIPT AT COLLEGE</div>
+    <div class="fadein"><img src="portfolio6.jpg"></div>
+    <div class="slideContsR slideConts">AIM FOR<br>WEB PROGRAMMER</div>
+  </div>
+  <script>
+    'use strict'
+      $(window).scroll(function (){
+        $('.fadein').each(function(){
+          var elemPos = $(this).offset().top,
+            scroll = $(window).scrollTop(),
+            windowHeight = $(window).height();
+            if (scroll > elemPos - windowHeight + 300){
+          $(this).addClass('scrollin');
+          }
+        });
+      });
+
+    var slideConts = document.querySelectorAll('.slideConts');
+    var slideContsRect = [];
+    var slideContsTop = [];
+    var windowY = window.pageYOffset;
+    var windowH = window.innerHeight;
+    var remainder = 100;
+    for (var i = 0; i < slideConts.length; i++) {
+      slideContsRect.push(slideConts[i].getBoundingClientRect());
+    }
+    for (var i = 0; i < slideContsRect.length; i++) {
+      slideContsTop.push(slideContsRect[i].top + windowY);
+    }
+    window.addEventListener('resize', function () {
+      windowH = window.innerHeight;
+    });
+    window.addEventListener('scroll', function () {
+      windowY = window.pageYOffset;
+      for (var i = 0; i < slideConts.length; i++) {
+        if(windowY > slideContsTop[i] - windowH + remainder) {
+          slideConts[i].classList.add('show');
+        } else {
+          slideConts[i].classList.remove('show');
+        }
+      }
+    });
+  </script>
 </body>
 </html>
